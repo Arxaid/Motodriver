@@ -106,6 +106,10 @@ void MotoDriver::BackwardUntil(const int8_t &_dcycle, const int8_t &motorId, con
     isMoving = true;
 
     delay(_delay);
+
+    motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
+    motors[motorId].Shutdown();
+    isMoving = false;
 }
 void MotoDriver::Forward(const int8_t &_dcycle, const int8_t &motorId){     
     motors[motorId].direction_() = MoveDirection::FORWARD;
@@ -120,11 +124,46 @@ void MotoDriver::ForwardUntil(const int8_t &_dcycle, const int8_t &motorId, cons
     isMoving = true;
     
     delay(_delay);
+
+    motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
+    motors[motorId].Shutdown();
+    isMoving = false;
 }
 void MotoDriver::Shutdown(const int8_t &motorId){ 
     motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
     motors[motorId].Shutdown();  
     isMoving = false; 
+}
+
+#pragma endregion
+#pragma region MovingGroup Initialization
+
+MovingGroup::MovingGroup() = default; 
+
+MovingGroup::MovingGroup(std::list<Motor> &_movingGroup) {
+    movingGroup = _movingGroup;
+}
+
+MovingGroup::MovingGroup(){}
+
+#pragma endregion
+#pragma region MovingGroup Functions
+
+void MovingGroup::GroupBackward(const int8_t &_dcycle){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::BACKWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }
+    isMoving = true;
+}
+void MovingGroup::GroupForward(const int8_t &_dcycle){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }
+    isMoving = true;
 }
 
 #pragma endregion
