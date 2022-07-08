@@ -131,18 +131,38 @@ class MotoDriver{
         #pragma region Functions
 
         /**
-        * @brief Move backward with set duty cycle if pwm pin exists, if not - move backward with 255.
+        * @brief Move backward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
         * @param dcycle Duty cycle value.
         * @param motorID Current motor you want to rotate.
         */
         void Backward(const int8_t &_dcycle, const int8_t &motorId);
 
         /**
-        * @brief Move forward with set duty cycle if pwm pin exists, if not - move forward with 255.
+        * @brief Move backward with set delay.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        * @param motorID Current motor you want to rotate.
+        * @param delay Moving time (milliseconds).
+        */
+        void BackwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay);
+
+        /**
+        * @brief Move forward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
         * @param dcycle Duty cycle value.
         * @param motorID Current motor you want to rotate.
         */
         void Forward(const int8_t &_dcycle, const int8_t &motorId);
+
+        /**
+        * @brief Move forward with set delay.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        * @param motorID Current motor you want to rotate.
+        * @param delay Moving time (milliseconds).
+        */
+        void ForwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay);
 
         /**
         * @brief Stop moving.
