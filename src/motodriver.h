@@ -172,3 +172,46 @@ class MotoDriver{
 
         #pragma endregion
 };
+
+class MovingGroup{
+    private:
+        std::list<Motor> movingGroup;
+        boolean isMoving;
+    public:
+        #pragma region Initialization
+
+        /**
+        * @brief MovingGroup object constructor by default.
+        */
+        MovingGroup();
+
+        /**
+        * @brief MovingGroup object constructor.
+        * @param movingGroup List of grouped motors.
+        */
+        MovingGroup(std::list<Motor> &_movingGroup);
+
+        /**
+        * @brief MovingGroup object destructor by default.
+        */
+        ~MovingGroup();
+
+        #pragma endregion
+        #pragma region Functions
+
+        /**
+        * @brief Move backward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        */
+        void GroupBackward(const int8_t &_dcycle);
+
+        /**
+        * @brief Move forward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        */
+        void GroupForward(const int8_t &_dcycle);
+
+        #pragma endregion
+};
