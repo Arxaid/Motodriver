@@ -20,7 +20,7 @@ Choose from the following issue types:
 **Arduino IDE:**   
 You can import Motodriver library going to _Sketch -> Include Library -> Manage Libraries_ and search for it, or you can download full repository as a .zip file and install it  directly going to _Sketch -> Include Library -> Add .ZIP Library_
 
-Platform IO:**   
+**Platform IO:**   
 You can import Motodriver library going to _PlatformIO: Home -> Libraries_ and search for it.
 
 ## Supported motor drivers
