@@ -12,24 +12,23 @@ Motor::Motor() = default;
 
 Motor::Motor(const int8_t &_pwm_pin, 
              const int8_t &_direction_pin1, const int8_t &_direction_pin2,
-             const ShieldDriversNames &_shield_driver_type = OTHER):
+             const ShieldDriversNames &_shield_driver_type):
              direction_pin1(_direction_pin1), direction_pin2(_direction_pin2),
              dcycle(100), direct(MoveDirection::SHUTDOWN){
-       
-    if(_shield_driver_type == L298N){
+    
+    switch (_shield_driver_type){
+    case L298N:
         shield_driver_name = "L298N 2X Motor Shield";
-
         pwm_pin = _pwm_pin;
         pinMode(pwm_pin, OUTPUT);
         pinMode(direction_pin1, OUTPUT);
         pinMode(direction_pin2, OUTPUT);
-    }
-    
-    if(_shield_driver_type == OTHER){
+        break;
+    default:
         shield_driver_name = "Undefined";
-
         pinMode(direction_pin1, OUTPUT);
         pinMode(direction_pin2, OUTPUT);
+        break;
     }
 }
 
@@ -60,12 +59,12 @@ void Motor::print8_t_driver_name(){
 void Motor::Rotate(){
     switch (direct){
     case MoveDirection::FORWARD:
-        digitalWrite(direction_pin1, LOW);
-        digitalWrite(direction_pin2, HIGH);
-        break;
-    case MoveDirection::BACKWARD: 
         digitalWrite(direction_pin1, HIGH);
         digitalWrite(direction_pin2, LOW);
+        break;
+    case MoveDirection::BACKWARD: 
+        digitalWrite(direction_pin1, LOW);
+        digitalWrite(direction_pin2, HIGH);
         break;
     default:
         digitalWrite(direction_pin1, LOW);
@@ -100,16 +99,71 @@ void MotoDriver::Backward(const int8_t &_dcycle, const int8_t &motorId){
     motors[motorId].Rotate();  
     isMoving = true;
 }
+void MotoDriver::BackwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay){     
+    motors[motorId].direction_() = MoveDirection::BACKWARD;
+    motors[motorId].duty_cycle_() = _dcycle;
+    motors[motorId].Rotate();  
+    isMoving = true;
+
+    delay(_delay);
+
+    motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
+    motors[motorId].Shutdown();
+    isMoving = false;
+}
 void MotoDriver::Forward(const int8_t &_dcycle, const int8_t &motorId){     
     motors[motorId].direction_() = MoveDirection::FORWARD;
     motors[motorId].duty_cycle_() = _dcycle;
     motors[motorId].Rotate();  
     isMoving = true; 
 }
+void MotoDriver::ForwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay){     
+    motors[motorId].direction_() = MoveDirection::FORWARD;
+    motors[motorId].duty_cycle_() = _dcycle;
+    motors[motorId].Rotate();  
+    isMoving = true;
+    
+    delay(_delay);
+
+    motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
+    motors[motorId].Shutdown();
+    isMoving = false;
+}
 void MotoDriver::Shutdown(const int8_t &motorId){ 
     motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
     motors[motorId].Shutdown();  
     isMoving = false; 
+}
+
+#pragma endregion
+#pragma region MovingGroup Initialization
+
+MovingGroup::MovingGroup() = default; 
+
+MovingGroup::MovingGroup(std::list<Motor> &_movingGroup) {
+    movingGroup = _movingGroup;
+}
+
+MovingGroup::MovingGroup(){}
+
+#pragma endregion
+#pragma region MovingGroup Functions
+
+void MovingGroup::GroupBackward(const int8_t &_dcycle){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::BACKWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }
+    isMoving = true;
+}
+void MovingGroup::GroupForward(const int8_t &_dcycle){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }
+    isMoving = true;
 }
 
 #pragma endregion

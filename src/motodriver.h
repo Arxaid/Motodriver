@@ -131,24 +131,87 @@ class MotoDriver{
         #pragma region Functions
 
         /**
-        * @brief Move backward with set duty cycle if pwm pin exists, if not - move backward with 255.
+        * @brief Move backward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
         * @param dcycle Duty cycle value.
         * @param motorID Current motor you want to rotate.
         */
         void Backward(const int8_t &_dcycle, const int8_t &motorId);
 
         /**
-        * @brief Move forward with set duty cycle if pwm pin exists, if not - move forward with 255.
+        * @brief Move backward with set delay.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        * @param motorID Current motor you want to rotate.
+        * @param delay Moving time (milliseconds).
+        */
+        void BackwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay);
+
+        /**
+        * @brief Move forward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
         * @param dcycle Duty cycle value.
         * @param motorID Current motor you want to rotate.
         */
         void Forward(const int8_t &_dcycle, const int8_t &motorId);
 
         /**
+        * @brief Move forward with set delay.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        * @param motorID Current motor you want to rotate.
+        * @param delay Moving time (milliseconds).
+        */
+        void ForwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay);
+
+        /**
         * @brief Stop moving.
         * @param motorID Current motor you want to stop.
         */
         void Shutdown(const int8_t &motorId);
+
+        #pragma endregion
+};
+
+class MovingGroup{
+    private:
+        std::list<Motor> movingGroup;
+        boolean isMoving;
+    public:
+        #pragma region Initialization
+
+        /**
+        * @brief MovingGroup object constructor by default.
+        */
+        MovingGroup();
+
+        /**
+        * @brief MovingGroup object constructor.
+        * @param movingGroup List of grouped motors.
+        */
+        MovingGroup(std::list<Motor> &_movingGroup);
+
+        /**
+        * @brief MovingGroup object destructor by default.
+        */
+        ~MovingGroup();
+
+        #pragma endregion
+        #pragma region Functions
+
+        /**
+        * @brief Move backward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        */
+        void GroupBackward(const int8_t &_dcycle);
+
+        /**
+        * @brief Move forward.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        */
+        void GroupForward(const int8_t &_dcycle);
 
         #pragma endregion
 };
