@@ -17,10 +17,10 @@ Choose from the following issue types:
 
 ## Install 
 
-**Arduino IDE:**
+**Arduino IDE: **<br>
 You can import Motodriver library going to _Sketch -> Include Library -> Manage Libraries_ and search for it, or you can download full repository as a .zip file and install it  directly going to _Sketch -> Include Library -> Add .ZIP Library_
 
-**Platform IO**
+**Platform IO: **<br>
 You can import Motodriver library going to _PlatformIO: Home -> Libraries_ and search for it.
 
 ## Supported motor drivers
@@ -83,6 +83,6 @@ You can find several examples of using Motodriver library with wiring schemas in
 
 ## Authors
 
-[D.Wolf](https://github.com/Runsolar)
-[Arxaid](https://github.com/Arxaid)
-[NeviDimka](https://github.com/dmitrii591)
+[D.Wolf](https://github.com/Runsolar)<br>
+[Arxaid](https://github.com/Arxaid)<br>
+[NeviDimka](https://github.com/dmitrii591)<br>
