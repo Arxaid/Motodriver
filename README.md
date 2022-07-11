@@ -1,8 +1,8 @@
 <img src="https://i.imgur.com/l4UcX4U.png" alt="Motodriver-Title" width="500"/>
 
 
-Universal Arduino library that makes simplier DC emgine control via popular motor driver shields.
-Nightly version 2.15
+Universal Arduino library that makes simplier DC engine control via popular motor driver shields.   
+Nightly version 2.16
 
 ## Feedback 
 
