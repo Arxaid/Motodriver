@@ -176,7 +176,7 @@ class MotoDriver{
 
 class MovingGroup{
     private:
-        std::list<Motor> movingGroup;
+        std::vector<Motor> movingGroup;
         boolean isMoving;
     public:
         #pragma region Initialization
@@ -190,7 +190,7 @@ class MovingGroup{
         * @brief MovingGroup object constructor.
         * @param movingGroup List of grouped motors.
         */
-        MovingGroup(std::list<Motor> &_movingGroup);
+        MovingGroup(std::vector<Motor> &_movingGroup);
 
         /**
         * @brief MovingGroup object destructor by default.

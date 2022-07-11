@@ -163,7 +163,7 @@ void MotoDriver::Shutdown(const int8_t &motorId){
 
 MovingGroup::MovingGroup() = default; 
 
-MovingGroup::MovingGroup(std::list<Motor> &_movingGroup) {
+MovingGroup::MovingGroup(std::vector<Motor> &_movingGroup) {
     movingGroup = _movingGroup;
 }
 
