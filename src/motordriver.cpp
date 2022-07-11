@@ -11,23 +11,40 @@
 Motor::Motor() = default;
 
 Motor::Motor(const int8_t &_pwm_pin, 
-             const int8_t &_direction_pin1, const int8_t &_direction_pin2,
-             const ShieldDriversNames &_shield_driver_type):
+             const int8_t &_direction_pin1, const int8_t &_direction_pin2 = 0,
+             const ShieldDriversNames &_shield_driver_type = ShieldDriversNames::OTHER):
              direction_pin1(_direction_pin1), direction_pin2(_direction_pin2),
              dcycle(100), direct(MoveDirection::SHUTDOWN){
     
     switch (_shield_driver_type){
     case L298N:
         shield_driver_name = "L298N 2X Motor Shield";
+
         pwm_pin = _pwm_pin;
         pinMode(pwm_pin, OUTPUT);
-        pinMode(direction_pin1, OUTPUT);
-        pinMode(direction_pin2, OUTPUT);
+        
+        if(direction_pin2 == 0){
+            pinMode(direction_pin1, OUTPUT);
+            direction_pin_flag = false;
+        }
+        if(direction_pin2 != 0){
+            pinMode(direction_pin1, OUTPUT);
+            pinMode(direction_pin2, OUTPUT);
+            direction_pin_flag = true;
+        }
         break;
     default:
         shield_driver_name = "Undefined";
-        pinMode(direction_pin1, OUTPUT);
-        pinMode(direction_pin2, OUTPUT);
+
+        if(direction_pin2 == 0){
+            pinMode(direction_pin1, OUTPUT);
+            direction_pin_flag = false;
+        }
+        if(direction_pin2 != 0){
+            pinMode(direction_pin1, OUTPUT);
+            pinMode(direction_pin2, OUTPUT);
+            direction_pin_flag = true;
+        }
         break;
     }
 }
@@ -57,20 +74,26 @@ void Motor::print8_t_driver_name(){
     std::cout << "Motor driver name is " << shield_driver_name << "\n";
 }
 void Motor::Rotate(){
-    switch (direct){
-    case MoveDirection::FORWARD:
-        digitalWrite(direction_pin1, HIGH);
-        digitalWrite(direction_pin2, LOW);
+    if(direction_pin_flag){
+        switch (direct){
+        case MoveDirection::FORWARD:
+            digitalWrite(direction_pin1, HIGH);
+            digitalWrite(direction_pin2, LOW);
         break;
-    case MoveDirection::BACKWARD: 
-        digitalWrite(direction_pin1, LOW);
-        digitalWrite(direction_pin2, HIGH);
+        case MoveDirection::BACKWARD: 
+            digitalWrite(direction_pin1, LOW);
+            digitalWrite(direction_pin2, HIGH);
         break;
-    default:
-        digitalWrite(direction_pin1, LOW);
-        digitalWrite(direction_pin2, LOW);
+        default:
+            digitalWrite(direction_pin1, LOW);
+            digitalWrite(direction_pin2, LOW);
         break;
+        }
     }
+    if(!direction_pin_flag){
+        digitalWrite(direction_pin1, direct);
+    }
+
     analogWrite(pwm_pin, dcycle);
 }
 void Motor::Shutdown(){
