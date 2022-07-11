@@ -11,12 +11,12 @@ These examples were made using **Arduino IDE** 1.8.19 version and with **Arduino
 
 * **Example 1**: Introduces basic sketch skeleton for controlling a pair of DC engines via L298N 2X motor driver shield.   
 
-* **Example 2**: Introduces sketch for controlling four DC engines as joint moving group via two L298N 2X motor driver shields.   
+* **Example 2**: Introduces sketch for controlling a pair DC engines as joint moving group via L298N 2X motor driver shields.   
 
 * **Example 3**: Introduces sketch demonastrates complex movement with turns and U-turns.   
 
 ## Authors
 
-[D.Wolf](https://github.com/Runsolar)
-[Arxaid](https://github.com/Arxaid)
-[NeviDimka](https://github.com/dmitrii591)
+[D.Wolf](https://github.com/Runsolar)   
+[Arxaid](https://github.com/Arxaid)   
+[NeviDimka](https://github.com/dmitrii591)   
