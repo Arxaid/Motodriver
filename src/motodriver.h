@@ -18,6 +18,7 @@ class Motor{
         int8_t direction_pin2;
         int8_t dcycle;
         int8_t direct;
+        boolean direction_pin_flag;
     public:
         int8_t motorID;
         int8_t shield_driver_type;
