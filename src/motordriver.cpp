@@ -57,12 +57,15 @@ Motor::~Motor(){}
 void Motor::set_direct(int8_t _direct){
     direct = _direct;
 }
+
 void Motor::set_dcycle(int8_t _dcycle){
     dcycle = _dcycle;
 }
+
 int8_t Motor::get_direct(){
     return direct;
 }
+
 int8_t Motor::get_dcycle(){
     return dcycle;
 }
@@ -73,6 +76,7 @@ int8_t Motor::get_dcycle(){
 void Motor::print8_t_driver_name(){
     std::cout << "Motor driver name is " << shield_driver_name << "\n";
 }
+
 void Motor::Rotate(){
     if(direction_pin_flag){
         switch (direct){
@@ -96,6 +100,7 @@ void Motor::Rotate(){
 
     analogWrite(pwm_pin, dcycle);
 }
+
 void Motor::Shutdown(){
     digitalWrite(direction_pin1, LOW);
     digitalWrite(direction_pin2, LOW);
@@ -122,6 +127,7 @@ void MotoDriver::Backward(const int8_t &_dcycle, const int8_t &motorId){
     motors[motorId].Rotate();  
     isMoving = true;
 }
+
 void MotoDriver::BackwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay){     
     motors[motorId].direction_() = MoveDirection::BACKWARD;
     motors[motorId].duty_cycle_() = _dcycle;
@@ -134,12 +140,14 @@ void MotoDriver::BackwardUntil(const int8_t &_dcycle, const int8_t &motorId, con
     motors[motorId].Shutdown();
     isMoving = false;
 }
+
 void MotoDriver::Forward(const int8_t &_dcycle, const int8_t &motorId){     
     motors[motorId].direction_() = MoveDirection::FORWARD;
     motors[motorId].duty_cycle_() = _dcycle;
     motors[motorId].Rotate();  
     isMoving = true; 
 }
+
 void MotoDriver::ForwardUntil(const int8_t &_dcycle, const int8_t &motorId, const int16_t &_delay){     
     motors[motorId].direction_() = MoveDirection::FORWARD;
     motors[motorId].duty_cycle_() = _dcycle;
@@ -152,6 +160,7 @@ void MotoDriver::ForwardUntil(const int8_t &_dcycle, const int8_t &motorId, cons
     motors[motorId].Shutdown();
     isMoving = false;
 }
+
 void MotoDriver::Shutdown(const int8_t &motorId){ 
     motors[motorId].direction_() = MoveDirection::SHUTDOWN;  
     motors[motorId].Shutdown();  
@@ -179,6 +188,7 @@ void MovingGroup::GroupBackward(const int8_t &_dcycle){
         iterator.Rotate();
     }   isMoving = true;
 }
+
 void MovingGroup::GroupBackwardUntil(const int8_t &_dcycle, const int16_t &_delay){
     for(Motor iterator : movingGroup){
         iterator.direction_() = MoveDirection::BACKWARD;
@@ -194,6 +204,7 @@ void MovingGroup::GroupBackwardUntil(const int8_t &_dcycle, const int16_t &_dela
     }   isMoving = false;
 
 }
+
 void MovingGroup::GroupForward(const int8_t &_dcycle){
     for(Motor iterator : movingGroup){
         iterator.direction_() = MoveDirection::FORWARD;
@@ -201,6 +212,7 @@ void MovingGroup::GroupForward(const int8_t &_dcycle){
         iterator.Rotate();
     }   isMoving = true;
 }
+
 void MovingGroup::GroupForwardUntil(const int8_t &_dcycle, const int16_t &_delay){
     for(Motor iterator : movingGroup){
         iterator.direction_() = MoveDirection::FORWARD;
@@ -215,11 +227,156 @@ void MovingGroup::GroupForwardUntil(const int8_t &_dcycle, const int16_t &_delay
         iterator.Shutdown();
     }   isMoving = false;
 }
+
 void MovingGroup::GroupShutdown(){
     for(Motor iterator : movingGroup){
         iterator.direction_() = MoveDirection::SHUTDOWN;
         iterator.Shutdown();
     }   isMoving = false;
+}
+
+void MovingGroup::HardTurnLeft(const int8_t &_dcycle = 50, const int16_t &_delay){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+        groupCounter++;
+    }   isMoving = true;
+
+    switch (groupCounter){
+    case 2:
+        movingGroup[2].duty_cycle_() = 255;
+        movingGroup[2].Rotate();
+        break;
+    case 3:
+        movingGroup[3].duty_cycle_() = 255;
+        movingGroup[3].Rotate();
+        break;
+    case 4:
+        movingGroup[2].duty_cycle_() = 255;
+        movingGroup[4].duty_cycle_() = 255;
+        movingGroup[2].Rotate();
+        movingGroup[4].Rotate();
+        break;
+    default:
+        break;
+    }   isMoving = true;
+
+    delay(_delay);
+
+    for(Motor iterator : movingGroup){
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }   isMoving = true;
+}
+
+void MovingGroup::HardTurnRight(const int8_t &_dcycle = 50, const int16_t &_delay){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+        groupCounter++;
+    }   isMoving = true;
+    
+    switch (groupCounter){
+    case 2:
+        movingGroup[1].duty_cycle_() = 255;
+        movingGroup[1].Rotate();
+        break;
+    case 3:
+        movingGroup[2].duty_cycle_() = 255;
+        movingGroup[2].Rotate();
+        break;
+    case 4:
+        movingGroup[1].duty_cycle_() = 255;
+        movingGroup[1].duty_cycle_() = 255;
+        movingGroup[3].Rotate();
+        movingGroup[3].Rotate();
+        break;
+    default:
+        break;
+    }   isMoving = true;
+
+    delay(_delay);
+
+    for(Motor iterator : movingGroup){
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }   isMoving = true;
+}
+
+void MovingGroup::SoftTurnLeft(const int8_t &_dcycle = 50, const int8_t &_turn_dcycle, const int16_t &_delay){
+    if(_dcycle + _turn_dcycle < 256){softVelocity = _dcycle + _turn_dcycle;}else{softVelocity = 255;}
+
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+        groupCounter++;
+    }   isMoving = true;
+    
+    switch (groupCounter){
+    case 2:
+        movingGroup[2].duty_cycle_() = softVelocity;
+        movingGroup[2].Rotate();
+        break;
+    case 3:
+        movingGroup[3].duty_cycle_() = softVelocity;
+        movingGroup[3].Rotate();
+        break;
+    case 4:
+        movingGroup[2].duty_cycle_() = softVelocity;
+        movingGroup[4].duty_cycle_() = softVelocity;
+        movingGroup[2].Rotate();
+        movingGroup[4].Rotate();
+        break;
+    default:
+        break;
+    }   isMoving = true;
+
+    delay(_delay);
+
+    for(Motor iterator : movingGroup){
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }   isMoving = true;
+}
+
+void MovingGroup::SoftTurnRight(const int8_t &_dcycle = 50, const int8_t &_turn_dcycle, const int16_t &_delay){
+    if(_dcycle + _turn_dcycle < 256){softVelocity = _dcycle + _turn_dcycle;}else{softVelocity = 255;}
+
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+        groupCounter++;
+    }   isMoving = true;
+    
+    switch (groupCounter){
+    case 2:
+        movingGroup[1].duty_cycle_() = softVelocity;
+        movingGroup[1].Rotate();
+        break;
+    case 3:
+        movingGroup[2].duty_cycle_() = softVelocity;
+        movingGroup[2].Rotate();
+        break;
+    case 4:
+        movingGroup[1].duty_cycle_() = softVelocity;
+        movingGroup[1].duty_cycle_() = softVelocity;
+        movingGroup[3].Rotate();
+        movingGroup[3].Rotate();
+        break;
+    default:
+        break;
+    }   isMoving = true;
+
+    delay(_delay);
+
+    for(Motor iterator : movingGroup){
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }   isMoving = true;
 }
 
 #pragma endregion
