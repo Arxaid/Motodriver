@@ -177,6 +177,8 @@ class MotoDriver{
 class MovingGroup{
     private:
         std::vector<Motor> movingGroup;
+        int8_t groupCounter;
+        int8_t softVelocity;
         boolean isMoving;
     public:
         #pragma region Initialization
@@ -235,5 +237,35 @@ class MovingGroup{
         */
         void GroupShutdown();
 
+        /**
+         * @brief Hard turn left with maximum possible angular velocity.
+         * @param dcycle Duty cycle value, if not stated - will be 50.
+         * @param delay Turning time (in milliseconds).
+         */
+        void HardTurnLeft(const int8_t &_dcycle, const int16_t &_delay);
+
+        /**
+         * @brief Hard turn right with maximum possible angular velocity.
+         * @param dcycle Moving group duty cycle value, if not stated - will be 50.
+         * @param delay Turning time (in milliseconds).
+         */
+        void HardTurnRight(const int8_t &_dcycle, const int16_t &_delay);
+
+        /**
+         * @brief Soft turn left with maximum possible angular velocity.
+         * @param dcycle Moving group duty cycle value, if not stated - will be 50.
+         * @param turn_dcycle Turning duty cycle increase.
+         * @param delay Turning time (in milliseconds).
+         */
+        void SoftTurnLeft(const int8_t &_dcycle, const int8_t &_turn_dcycle, const int16_t &_delay);
+
+        /**
+         * @brief Soft turn right with maximum possible angular velocity.
+         * @param dcycle Moving group duty cycle value, if not stated - will be 50.
+         * @param turn_dcycle Turning duty cycle increase.
+         * @param delay Turning time (in milliseconds).
+         */
+        void SoftTurnRight(const int8_t &_dcycle, const int8_t &_turn_dcycle, const int16_t &_delay);
+        
         #pragma endregion
 };
