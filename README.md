@@ -79,6 +79,10 @@ Where:
 | GroupBackward | signed char **Duty cycle**                                            | Move all grouped motors backward with set duty cycle. If not stated, it will be 255.        |
 | GroupBackwardUntil | signed char **Duty cycle**, short **Delay**                           | Move all grouped motors backward with set duty cycle and set delay. After delay end shutdown. |
 | GroupShutdown |                                                                       | Shutdown all motors in moving group.                                                        |
+| HardTurnLeft  | signed char **Duty cycle**, short **Delay**                           | Hard turn left with maximum possible angular velocity.                                      |
+| HardTurnRight | signed char **Duty cycle**, short **Delay**                           | Hard turn right with maximum possible angular velocity.                                     |
+| SoftTurnLeft  | signed char **Duty cycle**, signed char **Turn Duty cycle**, short **Delay**  | Soft turn left with set increased angular velocity.                                 |
+| SoftTurnRight | signed char **Duty cycle**, signed char **Turn Duty cycle**, short **Delay**  | Soft turn right with set increased angular velocity.                                |
 
 ## Sketch examples
 
