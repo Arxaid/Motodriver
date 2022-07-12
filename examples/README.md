@@ -5,8 +5,6 @@
 Here you can find several examples of using Motodriver library.   
 They are basic programs and wiring schemas which are meant to introduce you to various aspects of the Motodriver library.   
 
-## Requirements
-
 These examples were made using **Arduino IDE** 1.8.19 version and with **Arduino UNO** microcontroller board.   
 
 * **Example 1**: Introduces basic sketch skeleton for controlling a pair of DC engines via L298N 2X motor driver shield.   
