@@ -25,10 +25,8 @@ MovingGroup movingGroup = MovingGroup(motorList);
 void loop() {
 
     // Move forward with maximum duty cycle during second.
-    movingGroup.GroupBackward(255);
-    delay(1000);
+    movingGroup.GroupForwardUntil(255, 1000);
     
     // Move backward with low duty cycle during half a second.
-    movingGroup.GroupForward(50);
-    delay(500);
+    movingGroup.GroupBackwardUntil(50, 500);
 }
