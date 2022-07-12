@@ -17,10 +17,10 @@ Choose from the following issue types:
 
 ## Install 
 
-**Arduino IDE:**
+**Arduino IDE:**   
 You can import Motodriver library going to _Sketch -> Include Library -> Manage Libraries_ and search for it, or you can download full repository as a .zip file and install it  directly going to _Sketch -> Include Library -> Add .ZIP Library_
 
-**Platform IO**
+**Platform IO:**   
 You can import Motodriver library going to _PlatformIO: Home -> Libraries_ and search for it.
 
 ## Supported motor drivers
@@ -78,7 +78,7 @@ Where:
 | GroupForwardUntil | signed char **Duty cycle**, short **Delay**                           | Move all grouped motors forward with set duty cycle and set delay. After delay end shutdown. |
 | GroupBackward | signed char **Duty cycle**                                            | Move all grouped motors backward with set duty cycle. If not stated, it will be 255.        |
 | GroupBackwardUntil | signed char **Duty cycle**, short **Delay**                           | Move all grouped motors backward with set duty cycle and set delay. After delay end shutdown. |
-| GroupShutdown | signed char **MotorID**                                               | Shutdown all motors in moving group.                                                        |
+| GroupShutdown |                                                                       | Shutdown all motors in moving group.                                                        |
 
 ## Sketch examples
 
@@ -86,6 +86,6 @@ You can find several examples of using Motodriver library with wiring schemas in
 
 ## Authors
 
-[D.Wolf](https://github.com/Runsolar)
-[Arxaid](https://github.com/Arxaid)
-[NeviDimka](https://github.com/dmitrii591)
+[D.Wolf](https://github.com/Runsolar)   
+[Arxaid](https://github.com/Arxaid)   
+[NeviDimka](https://github.com/dmitrii591)   
