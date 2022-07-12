@@ -230,5 +230,10 @@ class MovingGroup{
         */
         void GroupForwardUntil(const int8_t &_dcycle, const int16_t &_delay);
 
+        /**
+        * @brief Stop moving.
+        */
+        void Shutdown();
+
         #pragma endregion
 };

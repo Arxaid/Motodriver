@@ -215,5 +215,11 @@ void MovingGroup::GroupForwardUntil(const int8_t &_dcycle, const int16_t &_delay
         iterator.Shutdown();
     }   isMoving = false;
 }
+void MovingGroup::Shutdown(){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::SHUTDOWN;
+        iterator.Shutdown();
+    }   isMoving = false;
+}
 
 #pragma endregion
