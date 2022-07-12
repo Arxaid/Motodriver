@@ -86,7 +86,7 @@ Where:
 
 ## Sketch examples
 
-You can find several examples of using Motodriver library with wiring schemas in **Examples** folder of this repository.
+You can find several examples of using Motodriver library with wiring schemas in [Examples](https://github.com/Arxaid/motodriver/tree/master/examples) folder of this repository.
 
 ## Authors
 
