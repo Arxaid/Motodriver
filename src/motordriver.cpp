@@ -177,16 +177,43 @@ void MovingGroup::GroupBackward(const int8_t &_dcycle){
         iterator.direction_() = MoveDirection::BACKWARD;
         iterator.duty_cycle_() = _dcycle;
         iterator.Rotate();
-    }
-    isMoving = true;
+    }   isMoving = true;
+}
+void MovingGroup::GroupBackwardUntil(const int8_t &_dcycle, const int16_t &_delay){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::BACKWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }   isMoving = true;
+
+    delay(_delay);
+
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::SHUTDOWN;
+        iterator.Shutdown();
+    }   isMoving = false;
+
 }
 void MovingGroup::GroupForward(const int8_t &_dcycle){
     for(Motor iterator : movingGroup){
         iterator.direction_() = MoveDirection::FORWARD;
         iterator.duty_cycle_() = _dcycle;
         iterator.Rotate();
-    }
-    isMoving = true;
+    }   isMoving = true;
+}
+void MovingGroup::GroupForwardUntil(const int8_t &_dcycle, const int16_t &_delay){
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::FORWARD;
+        iterator.duty_cycle_() = _dcycle;
+        iterator.Rotate();
+    }   isMoving = true;
+
+    delay(_delay);
+
+    for(Motor iterator : movingGroup){
+        iterator.direction_() = MoveDirection::SHUTDOWN;
+        iterator.Shutdown();
+    }   isMoving = false;
 }
 
 #pragma endregion

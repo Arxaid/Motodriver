@@ -208,11 +208,27 @@ class MovingGroup{
         void GroupBackward(const int8_t &_dcycle);
 
         /**
+        * @brief Move backward with set delay.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        * @param delay Moving time (milliseconds).
+        */
+        void GroupBackwardUntil(const int8_t &_dcycle, const int16_t &_delay);
+
+        /**
         * @brief Move forward.
         * @note Set duty cycle if pwm pin exists, if not - will move with 255.
         * @param dcycle Duty cycle value.
         */
         void GroupForward(const int8_t &_dcycle);
+
+        /**
+        * @brief Move forward with set delay.
+        * @note Set duty cycle if pwm pin exists, if not - will move with 255.
+        * @param dcycle Duty cycle value.
+        * @param delay Moving time (milliseconds).
+        */
+        void GroupForwardUntil(const int8_t &_dcycle, const int16_t &_delay);
 
         #pragma endregion
 };
