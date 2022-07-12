@@ -233,7 +233,7 @@ class MovingGroup{
         /**
         * @brief Stop moving.
         */
-        void Shutdown();
+        void GroupShutdown();
 
         #pragma endregion
 };
