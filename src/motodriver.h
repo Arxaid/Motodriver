@@ -252,7 +252,7 @@ class MovingGroup{
         void HardTurnRight(const int8_t &_dcycle, const int16_t &_delay);
 
         /**
-         * @brief Soft turn left with maximum possible angular velocity.
+         * @brief Soft turn left with set increased angular velocity.
          * @param dcycle Moving group duty cycle value, if not stated - will be 50.
          * @param turn_dcycle Turning duty cycle increase.
          * @param delay Turning time (in milliseconds).
@@ -260,7 +260,7 @@ class MovingGroup{
         void SoftTurnLeft(const int8_t &_dcycle, const int8_t &_turn_dcycle, const int16_t &_delay);
 
         /**
-         * @brief Soft turn right with maximum possible angular velocity.
+         * @brief Soft turn right with set increased angular velocity.
          * @param dcycle Moving group duty cycle value, if not stated - will be 50.
          * @param turn_dcycle Turning duty cycle increase.
          * @param delay Turning time (in milliseconds).
