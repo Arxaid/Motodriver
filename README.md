@@ -75,7 +75,10 @@ Where:
 | Method        | Params                                                                | Description                                                                                 |
 | ------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | GroupForward  | signed char **Duty cycle**                                            | Move all grouped motors forward with set duty cycle. If not stated, it will be 255.         |
+| GroupForwardUntil | signed char **Duty cycle**, short **Delay**                           | Move all grouped motors forward with set duty cycle and set delay. After delay end shutdown. |
 | GroupBackward | signed char **Duty cycle**                                            | Move all grouped motors backward with set duty cycle. If not stated, it will be 255.        |
+| GroupBackwardUntil | signed char **Duty cycle**, short **Delay**                           | Move all grouped motors backward with set duty cycle and set delay. After delay end shutdown. |
+| GroupShutdown | signed char **MotorID**                                               | Shutdown all motors in moving group.                                                        |
 
 ## Sketch examples
 
